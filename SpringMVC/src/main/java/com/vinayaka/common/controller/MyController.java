@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vinayaka.business.manager.DataProcessManager;
+import com.vinayaka.business.model.BitAvg;
+import com.vinayaka.business.model.BitMax;
+import com.vinayaka.business.model.BitMed;
 import com.vinayaka.business.model.CoinDetail;
 import com.vinayaka.exception.MyException;
 
@@ -83,10 +86,10 @@ public class MyController {
 
 	}
 
-	@RequestMapping(value = "/getTimeRateForGraphPage/{minutes}", method = RequestMethod.GET)
+	@RequestMapping(value = "/getGraph/{minutes}", method = RequestMethod.GET)
 	public String getTimeRateForGraphPAge(@PathVariable("minutes") String minutes, Model model) {
 
-		return "graph";
+		return "index";
 	}
 
 	@RequestMapping(value = "/getTimeRateForGraph/{minutes}", method = RequestMethod.GET)
@@ -104,5 +107,50 @@ public class MyController {
 
 	}
 	
+	@RequestMapping(value = "/getAvg/{minutes}", method = RequestMethod.GET)
+	public @ResponseBody Map<BitAvg,Set<CoinDetail>> getAvg(@PathVariable("minutes") String minutes, Model model) {
 
+		Map map = null;
+		try {
+			return dataProcessManager.getAverege(Long.parseLong(minutes));
+
+		} catch (MyException e) {
+			logger.info(e.getMessage());
+		}
+
+		return null;
+
+	}
+	
+	@RequestMapping(value = "/getMed/{minutes}", method = RequestMethod.GET)
+	public @ResponseBody Map<BitMed,Set<CoinDetail>> getMed(@PathVariable("minutes") String minutes, Model model) {
+
+		Map map = null;
+		try {
+			return dataProcessManager.getMedian(Long.parseLong(minutes));
+
+		} catch (MyException e) {
+			logger.info(e.getMessage());
+		}
+
+		return null;
+
+	}
+	
+	@RequestMapping(value = "/getMaxMin/{minutes}", method = RequestMethod.GET)
+	public @ResponseBody Map<BitMax,Set<CoinDetail>> getMax(@PathVariable("minutes") String minutes, Model model) {
+
+		Map map = null;
+		try {
+			return dataProcessManager.getMax(Long.parseLong(minutes));
+
+		} catch (MyException e) {
+			logger.info(e.getMessage());
+		}
+
+		return null;
+
+	}
+	
+	
 }

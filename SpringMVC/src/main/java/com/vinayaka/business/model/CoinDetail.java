@@ -1,9 +1,12 @@
 package com.vinayaka.business.model;
 
+import java.util.Date;
+
 public class CoinDetail implements Comparable<CoinDetail> {
 	
-	Long lastMinute;
-	Double price;
+	private Long lastMinute;
+	private Double price;
+	private String time;
 	public Long getLastMinute() {
 		return lastMinute;
 	}
@@ -23,6 +26,12 @@ public class CoinDetail implements Comparable<CoinDetail> {
 	private int compare(Long x, Long y) {
 		
 		return (x < y) ? -1 : ((x == y) ? 0 : 1);
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 }
