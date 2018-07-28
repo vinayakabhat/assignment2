@@ -1,0 +1,10 @@
+com\vinayaka\backgroundwork\RestBackgroundJob.class
+com\vinayaka\business\model\Time.class
+com\vinayaka\common\controller\MyController.class
+com\vinayaka\business\model\BPI.class
+com\vinayaka\business\model\CoinDetail.class
+com\vinayaka\backgroundwork\myTask.class
+com\vinayaka\business\model\BitCoinDetails.class
+com\vinayaka\exception\MyException.class
+com\vinayaka\business\manager\DataProcessManager.class
+com\vinayaka\business\manager\DataProcessManagerImpl.class
