@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vinayaka.business.manager.DataProcessManager;
 import com.vinayaka.business.model.BitAvg;
+import com.vinayaka.business.model.BitCoinDetails;
 import com.vinayaka.business.model.BitMax;
 import com.vinayaka.business.model.BitMed;
 import com.vinayaka.business.model.CoinDetail;
@@ -38,15 +39,14 @@ public class MyController {
 	}
 
 	
-
+	/*it will give the full cached BitCoin price details from server starting time*/
 	@RequestMapping(value = "/fullDetails", method = RequestMethod.GET)
-	public @ResponseBody Map fullDetails(/* @PathVariable String name, */ ModelMap model) {
+	public @ResponseBody Map<Long,BitCoinDetails> fullDetails(/* @PathVariable String name, */ ModelMap model) {
 
-		Map map = null;
+		Map<Long,BitCoinDetails> map = null;
 		try {
 			map = dataProcessManager.getMap();
-			model.addAttribute("movie", map);
-			System.out.println(map);
+			
 
 		} catch (MyException e) {
 			logger.info(e.getMessage());
@@ -55,10 +55,11 @@ public class MyController {
 
 	}
 
+	/*it will give the  server stored BitCoin price(in USD) details from server starting time*/
 	@RequestMapping(value = "/getTimeRateMap", method = RequestMethod.GET)
-	public @ResponseBody Map getTimeRateMap(/* @PathVariable String name, */ ModelMap model) {
+	public @ResponseBody Map<Long,Double>  getTimeRateMap(/* @PathVariable String name, */ ModelMap model) {
 
-		Map map = null;
+		Map<Long,Double>  map = null;
 		try {
 			map = dataProcessManager.getTimeRateMap();
 			model.addAttribute("movie", map);
@@ -71,10 +72,12 @@ public class MyController {
 
 	}
 
+	/* it will give the server stored BitCoin price(in USD) details over last X minutes*/
+	
 	@RequestMapping(value = "/getTimeRateMap/{minutes}", method = RequestMethod.GET)
-	public @ResponseBody Map getTimeRateMapMin(@PathVariable("minutes") String minutes) {
+	public @ResponseBody Map<Long,Double>  getTimeRateMapMin(@PathVariable("minutes") String minutes) {
 
-		Map map = null;
+		Map<Long,Double>  map = null;
 		try {
 			map = dataProcessManager.getTimeRateMap(Long.parseLong(minutes));
 			System.out.println(map);
@@ -86,16 +89,18 @@ public class MyController {
 
 	}
 
-	@RequestMapping(value = "/getGraph/{minutes}", method = RequestMethod.GET)
-	public String getTimeRateForGraphPAge(@PathVariable("minutes") String minutes, Model model) {
+	@RequestMapping(value = "/getGraph", method = RequestMethod.GET)
+	public String getTimeRateForGraphPage() {
 
 		return "index";
 	}
 
+	/*
+	 * it will give the  server stored BitCoin price(in USD) details from server starting time. This is for plotting graph*/
 	@RequestMapping(value = "/getTimeRateForGraph/{minutes}", method = RequestMethod.GET)
 	public @ResponseBody Set<CoinDetail> getTimeRateForGraph(@PathVariable("minutes") String minutes, Model model) {
 
-		Map map = null;
+		
 		try {
 			return dataProcessManager.getTimeRateForGraph();
 
@@ -107,10 +112,14 @@ public class MyController {
 
 	}
 	
+	
+	/*
+	 * it will give the  Average BitCoin price(in USD) details over last X minutes
+	*/
 	@RequestMapping(value = "/getAvg/{minutes}", method = RequestMethod.GET)
 	public @ResponseBody Map<BitAvg,Set<CoinDetail>> getAvg(@PathVariable("minutes") String minutes, Model model) {
 
-		Map map = null;
+		
 		try {
 			return dataProcessManager.getAverege(Long.parseLong(minutes));
 
@@ -122,10 +131,13 @@ public class MyController {
 
 	}
 	
+	/*
+	 * it will give the  Median price(in USD) details over last X minutes
+	*/
 	@RequestMapping(value = "/getMed/{minutes}", method = RequestMethod.GET)
 	public @ResponseBody Map<BitMed,Set<CoinDetail>> getMed(@PathVariable("minutes") String minutes, Model model) {
 
-		Map map = null;
+		
 		try {
 			return dataProcessManager.getMedian(Long.parseLong(minutes));
 
@@ -137,10 +149,14 @@ public class MyController {
 
 	}
 	
+	
+	/*
+	 * it will give the  Max and Min BitCoin price(in USD) details over last X minutes
+	*/
 	@RequestMapping(value = "/getMaxMin/{minutes}", method = RequestMethod.GET)
 	public @ResponseBody Map<BitMax,Set<CoinDetail>> getMax(@PathVariable("minutes") String minutes, Model model) {
 
-		Map map = null;
+		
 		try {
 			return dataProcessManager.getMax(Long.parseLong(minutes));
 

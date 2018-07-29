@@ -26,6 +26,9 @@ class myTask extends TimerTask
 		
 	}
 
+	/*This process runs every minute and read the data from coindesk. 
+	 * Inserts the data in our server cache DataProcessManagerImpl.cachedMap which is a treeMap
+	*/
 	private void startProcess() {
 
 		
@@ -88,7 +91,9 @@ public class RestBackgroundJob {
 		
 		Timer timer = new Timer();
 		myTask mt = new myTask();
-		timer.scheduleAtFixedRate(mt, 0, 10000);
+		
+		/*This task runs every minutes*/
+		timer.scheduleAtFixedRate(mt, 0, 60000);
 		
 	}
 

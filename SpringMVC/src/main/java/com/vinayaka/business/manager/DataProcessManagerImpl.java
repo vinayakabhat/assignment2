@@ -24,7 +24,7 @@ public class DataProcessManagerImpl implements DataProcessManager {
 	@Override
 	public void startProcess() throws MyException {}
 	@Override
-	public Map getMap() throws MyException {
+	public Map<Long,BitCoinDetails> getMap() throws MyException {
 		
 		
 		
